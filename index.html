@@ -310,11 +310,10 @@
     .bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #9ae8f6 0%, #66d9ee 20%, #4ecfe5 40%, #78cfff 60%, #67b8ff 80%, #9ae8f6 100%);
-      background-size: 240% 100%;
-      animation: progressFlow 7s linear infinite;
+      background: linear-gradient(90deg, #7edff0, #4ecfe5, #a6ecf7, #4ecfe5, #7edff0);
+      background-size: 220% 100%;
+      animation: progressFlow 6s linear infinite;
       transition: width 0.35s ease;
-      box-shadow: 0 0 12px rgba(102, 217, 238, 0.28);
     }
 
     @keyframes progressFlow {
@@ -372,9 +371,9 @@
     .result-card {
       padding: 30px 24px;
       border-radius: 24px;
-      background: linear-gradient(180deg, #f5fdff, #ffffff);
+      background: linear-gradient(180deg, #effcff, #ffffff);
       border: 1px solid #d9f0f5;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 10px 30px rgba(40, 110, 130, 0.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
       margin-top: 14px;
     }
 
@@ -398,66 +397,12 @@
       margin: 0 auto 26px;
       max-width: 640px;
       text-align: left;
-      background: rgba(247, 253, 255, 0.96);
+      background: rgba(240, 252, 255, 0.9);
       border-radius: 18px;
       padding: 18px 20px;
-      border: 1px solid #dbeff4;
+      border: 1px solid #efebf8;
       line-height: 1.8;
-      color: #3f4a52;
-    }
-
-    .score-chart {
-      margin: 0 auto 26px;
-      max-width: 640px;
-      padding: 18px 20px;
-      background: rgba(247, 253, 255, 0.96);
-      border: 1px solid #dbeff4;
-      border-radius: 18px;
-      text-align: left;
-    }
-
-    .score-chart-title {
-      font-size: 15px;
-      color: #56727c;
-      margin-bottom: 14px;
-    }
-
-    .score-row {
-      display: grid;
-      grid-template-columns: 70px 1fr 34px;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .score-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .score-label {
-      font-size: 14px;
-      color: #3f5560;
-    }
-
-    .score-track {
-      height: 12px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: linear-gradient(180deg, rgba(228, 241, 245, 0.95), rgba(217, 234, 239, 0.95));
-      box-shadow: inset 0 1px 2px rgba(120, 150, 160, 0.08);
-    }
-
-    .score-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 999px;
-      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .score-value {
-      font-size: 14px;
-      color: #4f6771;
-      text-align: right;
+      color: #444;
     }
 
     .button-row {
@@ -589,7 +534,6 @@
           <div class="result-animal" id="resultAnimal"></div>
           <h2 class="result-title" id="resultTitle"></h2>
           <p class="result-desc" id="resultDescription"></p>
-          <div class="score-chart" id="scoreChart"></div>
           <div class="result-points" id="resultPoints"></div>
         </div>
 
@@ -622,7 +566,6 @@
     const resultTitle = document.getElementById('resultTitle');
     const resultDescription = document.getElementById('resultDescription');
     const resultPoints = document.getElementById('resultPoints');
-    const scoreChart = document.getElementById('scoreChart');
 
     function buildAnimatedLine(text, baseDelay) {
       return text
@@ -809,79 +752,21 @@
       const finalType = getFinalType();
       const detail = results[finalType];
 
-      const refinedThemeMap = {
-        cat: {
-          bg: 'linear-gradient(180deg, #f4f8ff, #ffffff)',
-          border: '#dbe7f7',
-          tagBg: '#ebf2ff',
-          tagColor: '#5478b8',
-          bars: ['#9fc1ff', '#7fa8ff']
-        },
-        dog: {
-          bg: 'linear-gradient(180deg, #eefcff, #ffffff)',
-          border: '#d7eff4',
-          tagBg: '#e5f9fd',
-          tagColor: '#2f8da3',
-          bars: ['#74dced', '#42c6df']
-        },
-        fox: {
-          bg: 'linear-gradient(180deg, #fff9f1, #ffffff)',
-          border: '#f4e3cc',
-          tagBg: '#fff1de',
-          tagColor: '#ba7742',
-          bars: ['#ffcf9b', '#f1a85f']
-        },
-        rabbit: {
-          bg: 'linear-gradient(180deg, #fff7fb, #ffffff)',
-          border: '#f1dce8',
-          tagBg: '#fdebf4',
-          tagColor: '#b86a91',
-          bars: ['#f8bfd8', '#ee9ec2']
-        }
-      };
-
-      const chartColors = {
-        cat: ['#9fc1ff', '#7fa8ff'],
-        dog: ['#74dced', '#42c6df'],
-        fox: ['#ffcf9b', '#f1a85f'],
-        rabbit: ['#f8bfd8', '#ee9ec2']
-      };
-
-      const theme = refinedThemeMap[finalType];
-      resultCard.style.background = theme.bg;
-      resultCard.style.borderColor = theme.border;
-      resultTag.style.background = theme.tagBg;
-      resultTag.style.color = theme.tagColor;
+      resultCard.style.background = detail.theme.bg;
+      resultCard.style.borderColor = detail.theme.border;
+      resultTag.style.background = detail.theme.tagBg;
+      resultTag.style.color = detail.theme.tagColor;
 
       resultAnimal.textContent = detail.emoji;
       resultTitle.textContent = detail.title;
       resultDescription.textContent = detail.description;
-
-      const maxScore = Math.max(scores.cat, scores.dog, scores.fox, scores.rabbit, 1);
-      const scoreData = [
-        { key: 'cat', label: '猫猫', value: scores.cat },
-        { key: 'dog', label: '小狗', value: scores.dog },
-        { key: 'fox', label: '小狐狸', value: scores.fox },
-        { key: 'rabbit', label: '小兔子', value: scores.rabbit }
-      ];
-
-      scoreChart.innerHTML =
-        '<div class="score-chart-title">你的得分分布</div>' +
-        scoreData.map(function(item) {
-          const width = (item.value / maxScore) * 100;
-          const colors = chartColors[item.key];
-          return '<div class="score-row">' +
-            '<div class="score-label">' + item.label + '</div>' +
-            '<div class="score-track"><div class="score-fill" style="width:' + width + '%; background:linear-gradient(90deg,' + colors[0] + ',' + colors[1] + ');"></div></div>' +
-            '<div class="score-value">' + item.value + '</div>' +
-          '</div>';
-        }).join('');
-
       resultPoints.innerHTML =
         '<strong>为什么会是这个结果：</strong><br>' +
         detail.points.map(function (point) {
           return '• ' + point;
-        }).join('<br>');
+        }).join('<br>') +
+        '<br><br><strong>你的得分分布：</strong><br>' +
+        '猫猫 ' + scores.cat + ' / 小狗 ' + scores.dog + ' / 小狐狸 ' + scores.fox + ' / 小兔子 ' + scores.rabbit;
     }
 
     function restartQuiz() {
