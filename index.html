@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ning 的小动物测试</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     :root {
       --text: #1f2430;
@@ -15,10 +13,6 @@
       --card-bg: rgba(255, 255, 255, 0.72);
       --card-border: rgba(255, 255, 255, 0.55);
       --shadow: 0 24px 70px rgba(20, 60, 80, 0.12);
-      --lake: #5fd0e6;
-      --lake-deep: #2fb6d1;
-      --lake-soft: #c8f3fb;
-      --lake-glow: #9ee8f5;
     }
 
     body {
@@ -46,9 +40,7 @@
       padding: 24px;
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
     .fade-out {
       animation: pageFadeOut 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -60,29 +52,13 @@
     }
 
     @keyframes pageFadeOut {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.015);
-        filter: blur(8px);
-      }
+      0% { opacity: 1; transform: scale(1); filter: blur(0); }
+      100% { opacity: 0; transform: scale(1.015); filter: blur(8px); }
     }
 
     @keyframes pageFadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(18px) scale(0.99);
-        filter: blur(8px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
+      0% { opacity: 0; transform: translateY(18px) scale(0.99); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
     .welcome-card,
@@ -105,9 +81,7 @@
       animation: cardFloatIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    .card {
-      padding: 34px;
-    }
+    .card { padding: 34px; }
 
     .welcome-card::before,
     .card::before {
@@ -134,16 +108,8 @@
     }
 
     @keyframes cardFloatIn {
-      0% {
-        opacity: 0;
-        transform: translateY(26px) scale(0.985);
-        filter: blur(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
+      0% { opacity: 0; transform: translateY(26px) scale(0.985); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
     .welcome-badge,
@@ -183,9 +149,7 @@
       animation: appleReveal 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    .reveal-line:nth-child(2) {
-      animation-delay: 0.22s;
-    }
+    .reveal-line:nth-child(2) { animation-delay: 0.22s; }
 
     .letter {
       display: inline-block;
@@ -195,34 +159,16 @@
       animation: letterFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    .letter.space {
-      width: 0.32em;
-    }
+    .letter.space { width: 0.32em; }
 
     @keyframes appleReveal {
-      0% {
-        opacity: 0;
-        transform: translateY(24px) scale(0.985);
-        filter: blur(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
+      0% { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
     @keyframes letterFadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
-        filter: blur(6px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
+      0% { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
     .welcome-subtitle,
@@ -273,7 +219,6 @@
       overflow: hidden;
     }
 
-    /* 高光滑过动画 */
     .answer-btn::before {
       content: "";
       position: absolute;
@@ -287,9 +232,7 @@
       pointer-events: none;
     }
 
-    .answer-btn:hover::before {
-      transform: translateX(190%);
-    }
+    .answer-btn:hover::before { transform: translateX(190%); }
 
     .start-btn:hover,
     .answer-btn:hover,
@@ -310,15 +253,16 @@
     .bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #7edff0, #4ecfe5, #a6ecf7, #4ecfe5, #7edff0);
-      background-size: 220% 100%;
-      animation: progressFlow 6s linear infinite;
+      background: linear-gradient(90deg, #9ae8f6 0%, #66d9ee 20%, #4ecfe5 40%, #78cfff 60%, #67b8ff 80%, #9ae8f6 100%);
+      background-size: 240% 100%;
+      animation: progressFlow 7s linear infinite;
       transition: width 0.35s ease;
+      box-shadow: 0 0 12px rgba(102, 217, 238, 0.28);
     }
 
     @keyframes progressFlow {
       0% { background-position: 0% 50%; }
-      100% { background-position: 220% 50%; }
+      100% { background-position: 240% 50%; }
     }
 
     .question-box {
@@ -347,16 +291,6 @@
       gap: 14px;
     }
 
-    .answer-btn {
-      position: relative;
-      overflow: hidden;
-      background: rgba(255,255,255,0.92);
-      color: var(--text);
-      text-align: left;
-      line-height: 1.65;
-      padding: 16px 18px;
-    }
-
     .result {
       display: none;
       text-align: center;
@@ -369,17 +303,64 @@
     }
 
     .result-card {
-      padding: 30px 24px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, #effcff, #ffffff);
+      padding: 34px 28px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #f5fdff, #ffffff);
       border: 1px solid #d9f0f5;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 14px 34px rgba(40,110,130,0.08);
       margin-top: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card::before {
+      content: "";
+      position: absolute;
+      top: -70px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(95,208,230,0.16), rgba(95,208,230,0));
+      pointer-events: none;
+    }
+
+    .result-card::after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      left: -40px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(140,214,255,0.12), rgba(140,214,255,0));
+      pointer-events: none;
+    }
+
+    .result-animal-wrap {
+      width: 136px;
+      height: 136px;
+      margin: 8px auto 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 12px 28px rgba(60,120,140,0.10);
+    }
+
+    .result-animal-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.55);
+      pointer-events: none;
     }
 
     .result-animal {
-      font-size: 56px;
-      margin: 6px 0 8px;
+      font-size: 68px;
+      margin: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .result-title {
@@ -393,16 +374,68 @@
       margin: 0 auto 20px;
     }
 
+    .score-chart {
+      margin: 0 auto 26px;
+      max-width: 640px;
+      padding: 18px 20px;
+      background: rgba(247,253,255,0.96);
+      border: 1px solid #dbeff4;
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .score-chart-title {
+      font-size: 15px;
+      color: #56727c;
+      margin-bottom: 14px;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 70px 1fr 34px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .score-row:last-child { margin-bottom: 0; }
+
+    .score-label {
+      font-size: 14px;
+      color: #3f5560;
+    }
+
+    .score-track {
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(228,241,245,0.95), rgba(217,234,239,0.95));
+      box-shadow: inset 0 1px 2px rgba(120,150,160,0.08);
+    }
+
+    .score-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .score-value {
+      font-size: 14px;
+      color: #4f6771;
+      text-align: right;
+    }
+
     .result-points {
       margin: 0 auto 26px;
       max-width: 640px;
       text-align: left;
-      background: rgba(240, 252, 255, 0.9);
+      background: rgba(247,253,255,0.96);
       border-radius: 18px;
       padding: 18px 20px;
-      border: 1px solid #efebf8;
+      border: 1px solid #dbeff4;
       line-height: 1.8;
-      color: #444;
+      color: #3f4a52;
     }
 
     .button-row {
@@ -411,6 +444,14 @@
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 20px;
+    }
+
+    .share-copy-note {
+      margin-top: 12px;
+      text-align: center;
+      color: #6d8790;
+      font-size: 13px;
+      min-height: 18px;
     }
 
     .footer-note {
@@ -441,40 +482,16 @@
     }
 
     @media (max-width: 640px) {
-      .page {
-        padding: 14px;
-        align-items: stretch;
-      }
-
-      .welcome-card {
-        padding: 38px 20px;
-        margin: auto 0;
-      }
-
-      .card {
-        padding: 22px;
-        margin: auto 0;
-      }
-
-      .welcome-title {
-        font-size: 36px;
-      }
-
-      .quiz-title {
-        font-size: 28px;
-      }
-
+      .page { padding: 14px; align-items: stretch; }
+      .welcome-card { padding: 38px 20px; margin: auto 0; }
+      .card { padding: 22px; margin: auto 0; }
+      .welcome-title { font-size: 36px; }
+      .quiz-title { font-size: 28px; }
       .welcome-subtitle,
       .subtitle,
       .result-desc,
-      .result-points {
-        font-size: 15px;
-      }
-
-      .question-text {
-        font-size: 22px;
-      }
-
+      .result-points { font-size: 15px; }
+      .question-text { font-size: 22px; }
       .answer-btn,
       .start-btn,
       .restart-btn,
@@ -483,18 +500,10 @@
         padding: 15px 16px;
         font-size: 15px;
       }
-
-      .button-row {
-        flex-direction: column;
-      }
-
-      .result-animal {
-        font-size: 48px;
-      }
-
-      .result-title {
-        font-size: 24px;
-      }
+      .button-row { flex-direction: column; }
+      .result-animal-wrap { width: 112px; height: 112px; }
+      .result-animal { font-size: 54px; }
+      .result-title { font-size: 24px; }
     }
   </style>
 </head>
@@ -531,16 +540,22 @@
       <div class="result" id="resultBox">
         <div class="result-card" id="resultCard">
           <div class="result-tag" id="resultTag">你的结果是</div>
-          <div class="result-animal" id="resultAnimal"></div>
+          <div class="result-animal-wrap" id="resultAnimalWrap">
+            <div class="result-animal" id="resultAnimal"></div>
+          </div>
           <h2 class="result-title" id="resultTitle"></h2>
           <p class="result-desc" id="resultDescription"></p>
+          <div class="score-chart" id="scoreChart"></div>
           <div class="result-points" id="resultPoints"></div>
         </div>
 
         <div class="button-row">
           <button class="restart-btn" id="restartBtn">再测一次</button>
+          <button class="ghost-btn" id="savePosterBtn">生成分享海报</button>
+          <button class="ghost-btn" id="copyShareBtn">复制分享文案</button>
           <button class="ghost-btn" onclick="window.print()">打印 / 保存结果</button>
         </div>
+        <div class="share-copy-note" id="shareCopyNote"></div>
       </div>
 
       <div class="footer-note">你可以继续自己改题目、改结果文案、改成完全属于你的版本。</div>
@@ -548,9 +563,14 @@
   </div>
 
   <script>
+    const SITE_URL = 'https://nc3465.github.io/ning-mbti-test/';
+
     const welcomeTextEl = document.getElementById('welcomeText');
     const startBtn = document.getElementById('startBtn');
     const restartBtn = document.getElementById('restartBtn');
+    const savePosterBtn = document.getElementById('savePosterBtn');
+    const copyShareBtn = document.getElementById('copyShareBtn');
+    const shareCopyNote = document.getElementById('shareCopyNote');
     const welcomePage = document.getElementById('welcomePage');
     const quizPage = document.getElementById('quizPage');
 
@@ -562,10 +582,12 @@
     const resultBox = document.getElementById('resultBox');
     const resultCard = document.getElementById('resultCard');
     const resultTag = document.getElementById('resultTag');
+    const resultAnimalWrap = document.getElementById('resultAnimalWrap');
     const resultAnimal = document.getElementById('resultAnimal');
     const resultTitle = document.getElementById('resultTitle');
     const resultDescription = document.getElementById('resultDescription');
     const resultPoints = document.getElementById('resultPoints');
+    const scoreChart = document.getElementById('scoreChart');
 
     function buildAnimatedLine(text, baseDelay) {
       return text
@@ -636,10 +658,12 @@
           '慢热，但认定之后会很真诚'
         ],
         theme: {
-          bg: 'linear-gradient(180deg, #f7f1ff, #ffffff)',
-          border: '#eadfff',
-          tagBg: '#f2eaff',
-          tagColor: '#7a5ad8'
+          bg: 'linear-gradient(180deg, #f4f8ff, #ffffff)',
+          border: '#dbe7f7',
+          tagBg: '#ebf2ff',
+          tagColor: '#5478b8',
+          bars: ['#9fc1ff', '#7fa8ff'],
+          orb: 'linear-gradient(180deg, #eef4ff, #dce8ff)'
         }
       },
       dog: {
@@ -652,10 +676,12 @@
           '表达比较直接，也很真诚'
         ],
         theme: {
-          bg: 'linear-gradient(180deg, #fff6ee, #ffffff)',
-          border: '#ffe6cf',
-          tagBg: '#fff1e2',
-          tagColor: '#c9793c'
+          bg: 'linear-gradient(180deg, #eefcff, #ffffff)',
+          border: '#d7eff4',
+          tagBg: '#e5f9fd',
+          tagColor: '#2f8da3',
+          bars: ['#74dced', '#42c6df'],
+          orb: 'linear-gradient(180deg, #e0fbff, #c9f4fb)'
         }
       },
       fox: {
@@ -668,10 +694,12 @@
           '常常会想到别人没想到的角度'
         ],
         theme: {
-          bg: 'linear-gradient(180deg, #fff7ef, #ffffff)',
-          border: '#ffe5cf',
-          tagBg: '#fff0df',
-          tagColor: '#c96d36'
+          bg: 'linear-gradient(180deg, #fff9f1, #ffffff)',
+          border: '#f4e3cc',
+          tagBg: '#fff1de',
+          tagColor: '#ba7742',
+          bars: ['#ffcf9b', '#f1a85f'],
+          orb: 'linear-gradient(180deg, #fff1df, #ffe0bb)'
         }
       },
       rabbit: {
@@ -684,21 +712,18 @@
           '温柔，也很珍惜真诚的人'
         ],
         theme: {
-          bg: 'linear-gradient(180deg, #fff4f8, #ffffff)',
-          border: '#ffddea',
-          tagBg: '#ffeaf2',
-          tagColor: '#cc6c95'
+          bg: 'linear-gradient(180deg, #fff7fb, #ffffff)',
+          border: '#f1dce8',
+          tagBg: '#fdebf4',
+          tagColor: '#b86a91',
+          bars: ['#f8bfd8', '#ee9ec2'],
+          orb: 'linear-gradient(180deg, #ffeef5, #ffd8e8)'
         }
       }
     };
 
     let currentQuestion = 0;
-    let scores = {
-      cat: 0,
-      dog: 0,
-      fox: 0,
-      rabbit: 0
-    };
+    let scores = { cat: 0, dog: 0, fox: 0, rabbit: 0 };
 
     function showQuestion() {
       const q = questions[currentQuestion];
@@ -722,7 +747,6 @@
     function selectAnswer(type) {
       scores[type] += 1;
       currentQuestion += 1;
-
       if (currentQuestion < questions.length) {
         showQuestion();
       } else {
@@ -733,14 +757,12 @@
     function getFinalType() {
       let finalType = 'cat';
       let maxScore = -1;
-
       Object.keys(scores).forEach(function (type) {
         if (scores[type] > maxScore) {
           maxScore = scores[type];
           finalType = type;
         }
       });
-
       return finalType;
     }
 
@@ -748,45 +770,93 @@
       progressBar.style.width = '100%';
       quizArea.style.display = 'none';
       resultBox.classList.add('show');
+      shareCopyNote.textContent = '';
 
       const finalType = getFinalType();
       const detail = results[finalType];
+      const theme = detail.theme;
 
-      resultCard.style.background = detail.theme.bg;
-      resultCard.style.borderColor = detail.theme.border;
-      resultTag.style.background = detail.theme.tagBg;
-      resultTag.style.color = detail.theme.tagColor;
+      resultCard.style.background = theme.bg;
+      resultCard.style.borderColor = theme.border;
+      resultTag.style.background = theme.tagBg;
+      resultTag.style.color = theme.tagColor;
+      resultAnimalWrap.style.background = theme.orb;
 
       resultAnimal.textContent = detail.emoji;
       resultTitle.textContent = detail.title;
       resultDescription.textContent = detail.description;
+
+      const maxScore = Math.max(scores.cat, scores.dog, scores.fox, scores.rabbit, 1);
+      const scoreData = [
+        { key: 'cat', label: '猫猫', value: scores.cat },
+        { key: 'dog', label: '小狗', value: scores.dog },
+        { key: 'fox', label: '小狐狸', value: scores.fox },
+        { key: 'rabbit', label: '小兔子', value: scores.rabbit }
+      ];
+
+      scoreChart.innerHTML =
+        '<div class="score-chart-title">你的得分分布</div>' +
+        scoreData.map(function(item) {
+          const width = (item.value / maxScore) * 100;
+          const colors = results[item.key].theme.bars;
+          return '<div class="score-row">' +
+            '<div class="score-label">' + item.label + '</div>' +
+            '<div class="score-track"><div class="score-fill" style="width:' + width + '%; background:linear-gradient(90deg,' + colors[0] + ',' + colors[1] + ');"></div></div>' +
+            '<div class="score-value">' + item.value + '</div>' +
+          '</div>';
+        }).join('');
+
       resultPoints.innerHTML =
         '<strong>为什么会是这个结果：</strong><br>' +
         detail.points.map(function (point) {
           return '• ' + point;
-        }).join('<br>') +
-        '<br><br><strong>你的得分分布：</strong><br>' +
-        '猫猫 ' + scores.cat + ' / 小狗 ' + scores.dog + ' / 小狐狸 ' + scores.fox + ' / 小兔子 ' + scores.rabbit;
+        }).join('<br>');
     }
 
     function restartQuiz() {
       currentQuestion = 0;
-      scores = {
-        cat: 0,
-        dog: 0,
-        fox: 0,
-        rabbit: 0
-      };
+      scores = { cat: 0, dog: 0, fox: 0, rabbit: 0 };
       quizArea.style.display = 'block';
       resultBox.classList.remove('show');
       progressBar.style.width = '0%';
+      shareCopyNote.textContent = '';
       showQuestion();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function roundRect(ctx, x, y, width, height, radius, fill) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fill) ctx.fill();
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const chars = text.split('');
+      let line = '';
+      for (let i = 0; i < chars.length; i++) {
+        const testLine = line + chars[i];
+        if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+          ctx.fillText(line, x, y);
+          line = chars[i];
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, y);
+    }
+
     startBtn.addEventListener('click', function () {
       welcomePage.classList.add('fade-out');
-
       setTimeout(function () {
         welcomePage.classList.add('hidden');
         welcomePage.classList.remove('fade-out');
@@ -797,6 +867,100 @@
     });
 
     restartBtn.addEventListener('click', restartQuiz);
+
+    savePosterBtn.addEventListener('click', function () {
+      const finalType = getFinalType();
+      const detail = results[finalType];
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 1200;
+      canvas.height = 1500;
+      const ctx = canvas.getContext('2d');
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, 1500);
+      gradient.addColorStop(0, '#e8fbff');
+      gradient.addColorStop(1, '#ffffff');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 1200, 1500);
+
+      ctx.fillStyle = 'rgba(95,208,230,0.15)';
+      ctx.beginPath();
+      ctx.arc(190, 180, 180, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(1030, 1260, 210, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#5fd0e6';
+      ctx.font = 'bold 58px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Ning 的小动物测试', 600, 180);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      roundRect(ctx, 180, 250, 840, 860, 36, true);
+
+      const orb = ctx.createLinearGradient(0, 320, 0, 560);
+      if (finalType === 'cat') {
+        orb.addColorStop(0, '#eef4ff');
+        orb.addColorStop(1, '#dce8ff');
+      } else if (finalType === 'dog') {
+        orb.addColorStop(0, '#e0fbff');
+        orb.addColorStop(1, '#c9f4fb');
+      } else if (finalType === 'fox') {
+        orb.addColorStop(0, '#fff1df');
+        orb.addColorStop(1, '#ffe0bb');
+      } else {
+        orb.addColorStop(0, '#ffeef5');
+        orb.addColorStop(1, '#ffd8e8');
+      }
+      ctx.fillStyle = orb;
+      ctx.beginPath();
+      ctx.arc(600, 430, 110, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.font = '120px Arial';
+      ctx.fillStyle = '#1f2430';
+      ctx.fillText(detail.emoji, 600, 470);
+
+      ctx.font = 'bold 54px Arial';
+      ctx.fillStyle = '#1f2430';
+      ctx.fillText(detail.title, 600, 620);
+
+      ctx.font = '28px Arial';
+      ctx.fillStyle = '#5f6f7a';
+      wrapText(ctx, detail.description, 600, 700, 620, 42);
+
+      ctx.fillStyle = '#4f6771';
+      ctx.font = 'bold 28px Arial';
+      ctx.fillText('为什么会是这个结果', 600, 910);
+
+      ctx.font = '26px Arial';
+      detail.points.forEach(function(point, index) {
+        ctx.fillText('• ' + point, 600, 970 + index * 42);
+      });
+
+      ctx.fillStyle = '#89a7af';
+      ctx.font = '24px Arial';
+      ctx.fillText('来测测你是什么小动物人格', 600, 1290);
+      ctx.fillText(SITE_URL, 600, 1338);
+
+      const link = document.createElement('a');
+      link.download = 'ning-animal-result.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    copyShareBtn.addEventListener('click', async function () {
+      const finalType = getFinalType();
+      const detail = results[finalType];
+      const text = '我测出来是 ' + detail.title + ' ' + detail.emoji + '\n来玩 Ning 的小动物测试～\n' + SITE_URL;
+      try {
+        await navigator.clipboard.writeText(text);
+        shareCopyNote.textContent = '分享文案已复制，可以直接发给朋友啦。';
+      } catch (error) {
+        shareCopyNote.textContent = '复制失败了，你可以手动复制链接分享。';
+      }
+    });
 
     renderWelcomeTitle();
   </script>
