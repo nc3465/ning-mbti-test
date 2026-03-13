@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ning 的判断逻辑 MBTI 测试</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f6f0ff, #eef7ff, #fff7ef);
+      min-height: 100vh;
+      color: #1f2430;
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 780px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      backdrop-filter: blur(8px);
+    }
+
+    .welcome-card {
+      text-align: center;
+      max-width: 760px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 32px;
+      padding: 56px 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+
+    .welcome-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f2edff;
+      color: #6d58d8;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .welcome-title {
+      font-size: 48px;
+      line-height: 1.25;
+      min-height: 130px;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .welcome-subtitle {
+      margin: 22px auto 30px;
+      max-width: 560px;
+      color: #666;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .start-btn, .answer-btn, .restart-btn {
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      font-size: 16px;
+    }
+
+    .start-btn, .restart-btn {
+      background: #111827;
+      color: #fff;
+      padding: 16px 28px;
+    }
+
+    .start-btn:hover, .answer-btn:hover, .restart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.10);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h1.quiz-title {
+      margin: 0;
+      font-size: 34px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin: 14px 0 28px;
+      line-height: 1.7;
+    }
+
+    .progress {
+      height: 10px;
+      background: #ececf4;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #9c7cff, #6db9ff, #ffb870);
+      transition: width 0.3s ease;
+    }
+
+    .question-box {
+      padding: 28px;
+      border-radius: 22px;
+      background: #ffffff;
+      border: 2px solid #f1f1f7;
+    }
+
+    .question-number {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .dimension-label {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      background: #f3efff;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #6b56d8;
+    }
+
+    .question-text {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 22px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 14px;
+    }
+
+    .answer-btn {
+      padding: 16px 18px;
+      background: #f8f8fd;
+      color: #222;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .result {
+      display: none;
+      text-align: center;
+      padding-top: 6px;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result-card {
+      padding: 30px 24px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #faf7ff, #ffffff);
+      border: 1px solid #ece7ff;
+      margin-top: 14px;
+    }
+
+    .result-tag {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #f2edff;
+      color: #6d58d8;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .result-type {
+      font-size: 54px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin: 0 0 10px;
+    }
+
+    .result-title {
+      font-size: 28px;
+      margin: 0 0 16px;
+    }
+
+    .result-desc {
+      font-size: 17px;
+      line-height: 1.9;
+      color: #444;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .result-points {
+      margin: 0 auto 26px;
+      max-width: 640px;
+      text-align: left;
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 20px;
+      border: 1px solid #efefef;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .ghost-btn {
+      background: #fff;
+      color: #111827;
+      border: 1px solid #dcdce8;
+      padding: 16px 28px;
+      border-radius: 18px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      .welcome-title { font-size: 34px; min-height: 96px; }
+      .card, .welcome-card { padding: 24px; }
+      .question-text { font-size: 22px; }
+      .result-type { font-size: 42px; }
+      .result-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="welcomePage" class="page">
+    <div class="welcome-card">
+      <div class="welcome-badge">✨ personality logic test</div>
+      <h1 class="welcome-title" id="welcomeText"></h1>
+      <div class="welcome-subtitle">
+        这是一个偏向“判断逻辑”的小测试。你会回答 8 道题，看看你的思维方式更接近哪一种 MBTI。
+      </div>
+      <button class="start-btn" id="startBtn">点击进入开始测试</button>
+    </div>
+  </div>
+
+  <div id="quizPage" class="page hidden">
+    <div class="card">
+      <h1 class="quiz-title">你的判断逻辑 MBTI 测试</h1>
+      <div class="subtitle">不是标准量表版本，而是一个好玩、直观、适合练习网页交互的自定义测试。</div>
+
+      <div class="progress">
+        <div class="bar" id="progressBar"></div>
+      </div>
+
+      <div id="quizArea">
+        <div class="question-box">
+          <div class="question-number" id="questionNumber">第 1 题</div>
+          <div class="dimension-label" id="dimensionLabel">维度</div>
+          <div class="question-text" id="questionText"></div>
+          <div class="answers" id="answersBox"></div>
+        </div>
+      </div>
+
+      <div class="result" id="resultBox">
+        <div class="result-card" id="posterArea">
+          <div class="result-tag">你的结果是</div>
+          <h2 class="result-type" id="resultType"></h2>
+          <div class="result-title" id="resultTitle"></div>
+          <p class="result-desc" id="resultDescription"></p>
+          <div class="result-points" id="resultPoints"></div>
+        </div>
+
+        <div class="button-row" style="margin-top: 20px;">
+          <button class="restart-btn" onclick="restartQuiz()">再测一次</button>
+          <button class="ghost-btn" onclick="window.print()">打印 / 保存结果</button>
+        </div>
+      </div>
+
+      <div class="footer-note">你可以直接修改题目内容、欢迎页文案和结果描述，做成完全属于你的版本。</div>
+    </div>
+  </div>
+
+  <script>
+    const welcomeFullText = "欢迎来到\nNing 的测试题～";
+    const welcomeTextEl = document.getElementById("welcomeText");
+    let welcomeIndex = 0;
+
+    function typeWelcomeText() {
+      if (welcomeIndex < welcomeFullText.length) {
+        const nextChar = welcomeFullText.charAt(welcomeIndex);
+        welcomeTextEl.innerHTML += nextChar === "\n" ? "<br>" : nextChar;
+        welcomeIndex++;
+        setTimeout(typeWelcomeText, 90);
+      } else {
+        welcomeTextEl.innerHTML += '<span class="cursor">|</span>';
+      }
+    }
+
+    typeWelcomeText();
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("welcomePage").classList.add("hidden");
+      document.getElementById("quizPage").classList.remove("hidden");
+      showQuestion();
+    });
+
+    const questions = [
+      {
+        dimension: "E / I",
+        text: "遇到一个很有意思的话题时，你更常见的第一反应是？",
+        answers: [
+          { text: "马上想和别人聊聊，边说边整理想法", axis: "E" },
+          { text: "先自己想明白，再决定要不要表达", axis: "I" }
+        ]
+      },
+      {
+        dimension: "S / N",
+        text: "做判断时，你更依赖哪一种信息？",
+        answers: [
+          { text: "现实细节、过往经验、眼前证据", axis: "S" },
+          { text: "趋势、隐含意义、未来可能性", axis: "N" }
+        ]
+      },
+      {
+        dimension: "T / F",
+        text: "当朋友来找你倾诉时，你更倾向于？",
+        answers: [
+          { text: "分析问题，帮她理出最合理的解决方案", axis: "T" },
+          { text: "先接住她的情绪，让她感到被理解", axis: "F" }
+        ]
+      },
+      {
+        dimension: "J / P",
+        text: "面对一个需要完成的任务时，你通常会？",
+        answers: [
+          { text: "先定结构和时间表，按计划推进", axis: "J" },
+          { text: "先自由摸索，边做边调整节奏", axis: "P" }
+        ]
+      },
+      {
+        dimension: "E / I",
+        text: "在新环境里，你更容易通过哪种方式进入状态？",
+        answers: [
+          { text: "先跟人产生互动，场子熟了就自然了", axis: "E" },
+          { text: "先观察氛围，等自己舒服了再慢慢进入", axis: "I" }
+        ]
+      },
+      {
+        dimension: "S / N",
+        text: "看到一个创意项目时，你第一眼更关注？",
+        answers: [
+          { text: "它具体怎么实现、细节是否扎实", axis: "S" },
+          { text: "它背后的概念、隐喻和延展空间", axis: "N" }
+        ]
+      },
+      {
+        dimension: "T / F",
+        text: "当两个人发生冲突时，你更在意？",
+        answers: [
+          { text: "谁的逻辑更站得住脚、边界是否清楚", axis: "T" },
+          { text: "谁更受伤、关系还能不能被修复", axis: "F" }
+        ]
+      },
+      {
+        dimension: "J / P",
+        text: "旅行时你更像哪一种人？",
+        answers: [
+          { text: "提前查路线、做清单、安排重点", axis: "J" },
+          { text: "临场决定去哪里，让偶然带路", axis: "P" }
+        ]
+      }
+    ];
+
+    const resultDescriptions = {
+      INTJ: {
+        title: "策略型思考者",
+        description: "你倾向于先独立观察，再快速建立自己的判断模型。你重视结构、效率和长期逻辑，喜欢看见事情背后的机制。",
+        points: ["擅长抽象判断和系统规划", "做决定时很看重一致性", "通常不轻易被外界节奏带跑"]
+      },
+      INTP: {
+        title: "概念型思考者",
+        description: "你喜欢拆解问题、追问本质，也常常在脑内建立复杂的逻辑地图。相比结论本身，你更在意它是不是说得通。",
+        points: ["喜欢分析与重构", "容易被有趣的新想法吸引", "偏向先理解，再行动"]
+      },
+      ENTJ: {
+        title: "推进型指挥者",
+        description: "你常常会一边思考一边推动事情向前。你对目标感、效率和掌控感比较敏锐，也很会把想法转成行动。",
+        points: ["善于决策与组织", "很重视结果和推进速度", "遇事通常先想怎么解决"]
+      },
+      ENTP: {
+        title: "跳跃型构想者",
+        description: "你的脑子转得很快，擅长联想、辩论和生成新可能。你往往不是照着路走的人，而是会顺手开一条新路。",
+        points: ["创意和脑暴能力强", "喜欢可能性胜过定论", "适应变化快，不爱被框死"]
+      },
+      INFJ: {
+        title: "洞察型理想主义者",
+        description: "你既在意内在逻辑，也非常关注意义和人。你常会从细微信号里读出更深层的情绪结构与关系变化。",
+        points: ["直觉强，感受深", "擅长理解复杂关系", "判断常带有价值感和方向感"]
+      },
+      INFP: {
+        title: "价值型想象者",
+        description: "你更依赖内在价值感来判断对错，通常不愿违背自己的真实感受。你也很容易被有灵魂、有想象力的东西打动。",
+        points: ["重视真诚与共鸣", "内在世界丰富", "判断会受到价值观强烈影响"]
+      },
+      ENFJ: {
+        title: "共情型引导者",
+        description: "你既能感知别人，也愿意带动别人。你对气氛、关系和集体流动很敏感，常会不自觉成为推动连接的人。",
+        points: ["很会照顾互动感受", "表达力和感染力较强", "容易在关系中承担引导角色"]
+      },
+      ENFP: {
+        title: "灵感型探索者",
+        description: "你会被新鲜感、意义感和人的独特性吸引。你的判断常常带着热情和直觉，也喜欢给世界加一点自己的想象。",
+        points: ["很有感染力", "喜欢自由和可能性", "容易因为热爱而投入"]
+      },
+      ISTJ: {
+        title: "稳固型执行者",
+        description: "你偏向根据事实、经验和责任感来做决定。你不太喜欢空泛表达，更相信踏实、明确和可以落实的东西。",
+        points: ["可靠、稳定、重秩序", "重视事实依据", "做事通常很有边界和条理"]
+      },
+      ISFJ: {
+        title: "温和型守护者",
+        description: "你做判断时很注意现实细节，也会考虑他人的感受。你往往安静但细心，是那种会默默把很多事照顾好的人。",
+        points: ["细腻、可靠、很顾及他人", "对实际生活的感知强", "重视稳定与安全感"]
+      },
+      ESTJ: {
+        title: "秩序型管理者",
+        description: "你做判断时更偏向明确规则、现实结果和执行效率。你很擅长把混乱局面重新整理成可推进的秩序。",
+        points: ["行动明确，执行力强", "重视结构、责任和结果", "不太喜欢反复摇摆"]
+      },
+      ESFJ: {
+        title: "照应型组织者",
+        description: "你既在乎秩序，也在乎关系。你很会从现实层面照顾周围的人，让一件事既能运行，也能让大家感觉舒服。",
+        points: ["对人和场都很敏感", "擅长安排和协调", "很重视彼此的回应"]
+      },
+      ISTP: {
+        title: "冷静型解决者",
+        description: "你做判断时往往直接、客观，而且不喜欢被多余规则绑住。你常常是在观察之后，迅速找到最有效的处理方式。",
+        points: ["擅长即时解决问题", "偏理性，不爱拖泥带水", "喜欢保留自己的空间和节奏"]
+      },
+      ISFP: {
+        title: "审美型感受者",
+        description: "你通常通过实际体验和内在感受来做判断。你不一定高调，但你很知道什么是适合自己的、什么是真实的。",
+        points: ["审美感和体验感较强", "温和但不失主见", "更相信身体和内心的感觉"]
+      },
+      ESTP: {
+        title: "现场型行动者",
+        description: "你倾向在现实中快速反应，边试边判断。你通常很会抓时机，也不怕变化，很多时候会先上手再总结。",
+        points: ["反应快，行动力强", "适应现场能力高", "喜欢直接和真实的体验"]
+      },
+      ESFP: {
+        title: "氛围型体验者",
+        description: "你常常通过人与现场氛围来做判断。你在意感受、在意当下，也很容易给周围的人带来轻盈和活力。",
+        points: ["有感染力，重体验", "对气氛和关系很敏感", "活在当下的能力较强"]
+      }
+    };
+
+    let currentQuestion = 0;
+    let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+    const questionNumber = document.getElementById("questionNumber");
+    const dimensionLabel = document.getElementById("dimensionLabel");
+    const questionText = document.getElementById("questionText");
+    const answersBox = document.getElementById("answersBox");
+    const progressBar = document.getElementById("progressBar");
+    const resultBox = document.getElementById("resultBox");
+    const resultType = document.getElementById("resultType");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultDescription = document.getElementById("resultDescription");
+    const resultPoints = document.getElementById("resultPoints");
+    const quizArea = document.getElementById("quizArea");
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      questionNumber.textContent = `第 ${currentQuestion + 1} 题 / 共 ${questions.length} 题`;
+      dimensionLabel.textContent = `维度：${q.dimension}`;
+      questionText.textContent = q.text;
+      answersBox.innerHTML = "";
+
+      q.answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = answer.text;
+        btn.onclick = () => selectAnswer(answer.axis);
+        answersBox.appendChild(btn);
+      });
+
+      progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+    }
+
+    function selectAnswer(axis) {
+      scores[axis]++;
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function buildMbtiType() {
+      const EI = scores.E >= scores.I ? "E" : "I";
+      const SN = scores.S >= scores.N ? "S" : "N";
+      const TF = scores.T >= scores.F ? "T" : "F";
+      const JP = scores.J >= scores.P ? "J" : "P";
+      return EI + SN + TF + JP;
+    }
+
+    function showResult() {
+      progressBar.style.width = "100%";
+      quizArea.style.display = "none";
+      resultBox.classList.add("show");
+
+      const mbti = buildMbtiType();
+      const detail = resultDescriptions[mbti];
+
+      resultType.textContent = mbti;
+      resultTitle.textContent = detail.title;
+      resultDescription.textContent = detail.description;
+      resultPoints.innerHTML = `
+        <strong>你的维度得分：</strong><br>
+        E ${scores.E} / I ${scores.I}<br>
+        S ${scores.S} / N ${scores.N}<br>
+        T ${scores.T} / F ${scores.F}<br>
+        J ${scores.J} / P ${scores.P}<br><br>
+        <strong>这个类型为什么会出现：</strong><br>
+        ${detail.points.map(point => `• ${point}`).join("<br>")}
+      `;
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+      quizArea.style.display = "block";
+      resultBox.classList.remove("show");
+      showQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
